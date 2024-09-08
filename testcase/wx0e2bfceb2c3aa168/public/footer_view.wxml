@@ -1,0 +1,5 @@
+<template name="footer-page">
+    <view class="footer_view" wx:if="{{!netStateBean.loadMoreHidden}}">
+        {{netStateBean.loadMoreMsg}}
+    </view>
+</template>

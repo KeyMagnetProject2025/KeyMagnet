@@ -1,0 +1,284 @@
+.flex {
+    display: -webkit-box;
+    display: flex;
+}
+
+.inline-flex {
+    display: -webkit-box;
+    display: inline-flex;
+}
+
+.border-box {
+    box-sizing: border-box;
+}
+
+.f-13rem {
+    font-size: 26rpx;
+}
+
+.f-10rem {
+    font-size: 20rpx;
+}
+
+.f-15rem {
+    font-size: 30rpx;
+}
+
+.f-14rem {
+    font-size: 28rpx;
+}
+
+.f-11rem {
+    font-size: 22rpx;
+}
+
+.f-12rem {
+    font-size: 24rpx;
+}
+
+.f-16rem {
+    font-size: 32rpx;
+}
+
+.f-18rem {
+    font-size: 36rpx;
+}
+
+.f-f {
+    font-family: "Microsoft YaHei",Arial;
+}
+
+.f-f-s {
+    font-family: SimSun,Arial Narrow,HELVETICA;
+}
+
+.f-w-blod {
+    font-weight: bold;
+}
+
+.defaultPrimaryColor {
+    color: #FF5D38;
+}
+
+.defaultBackgroundColor {
+    background-color: #f6f6f6;
+}
+
+.lineColor {
+    background-color: #e7e7e7;
+}
+
+.titleTextColor {
+    color: #333;
+}
+
+.contentTextColor {
+    color: rgba(33,33,33,0.8);
+}
+
+.infoTextColor {
+    color: #9b9b9b;
+}
+
+.subTextColor {
+    color: #b2b2b2;
+}
+
+.editHintColor {
+    color: #d7d7d7;
+}
+
+.linkColor {
+    color: #5a85ce;
+}
+
+.template_item_view {
+    height: 88rpx;
+    padding-left: 30rpx;
+    padding-right: 20rpx;
+    background-color: white;
+}
+
+.template_flex_box {
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.template_flex_box_column {
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.rl {
+    position: relative;
+}
+
+.abs {
+    position: absolute;
+}
+
+.hide {
+    display: none;
+}
+
+.z5 {
+    z-index: 5;
+}
+
+.z9 {
+    z-index: 9;
+}
+
+.marginTop10 {
+    margin-top: 20rpx;
+}
+
+.marginBottom10 {
+    margin-bottom: 20rpx;
+}
+
+.footer_view {
+    width: 100%;
+    height: 45px;
+    font-size: 14px;
+    text-align: center;
+    line-height: 40px;
+    color: #666666;
+}
+
+.error_view {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    padding-top: 45%;
+    font-size: 14rpx;
+    text-align: center;
+}
+
+.empty_view {
+    width: 100%;
+    height: 100%;
+    padding-top: 40%;
+    font-size: 14rpx;
+    position: fixed;
+    text-align: center;
+}
+
+.center_wrapper {
+    float: left;
+    position: relative;
+    left: 50%;
+    clear: both;
+}
+
+.center_child {
+    position: relative;
+    left: -50%;
+    white-space: nowrap;
+}
+
+.error_msg {
+    margin-top: 15rpx;
+    font-size: 30rpx;
+}
+
+.error_view .error_retry {
+    margin-top: 20rpx;
+    width: 600rpx;
+    font-size: 31rpx;
+}
+
+.d-flex-center {
+    align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+}
+
+.d-flex {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.flex01 {
+    -webkit-box-flex: 1;
+    flex: 1;
+}
+
+view,input {
+    font-family: "Microsoft YaHei",Arial;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.ta-l {
+    text-align: left;
+}
+
+.ta-c {
+    text-align: center;
+}
+
+.ta-r {
+    text-align: right;
+}
+
+.c999 {
+    color: #999;
+}
+
+.c666 {
+    color: #666;
+}
+
+.c111 {
+    color: #111;
+}
+
+.c-f5a0 {
+    color: #ff5a00;
+}
+
+.c-09cf {
+    color: #009cff;
+}
+
+.flow-auto {
+    overflow: auto;
+}
+
+.rel {
+    position: relative;
+}
+
+.abs {
+    position: absolute;
+}
+
+.mar-t {
+    margin-top: 10px;
+}
+
+.pd-15 {
+    padding: 30rpx;
+}
+
+.bg-f {
+    background: #fff;
+}
+
+.fix-tb {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}

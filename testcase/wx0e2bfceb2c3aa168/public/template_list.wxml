@@ -1,0 +1,6 @@
+<import src="template.wxml"></import>
+<view>
+    <view bindtap="onItemClick" data-id="{{idx}}" wx:for="{{items}}" wx:for-index="idx">
+        <template is="{{item.item_status}}" data="{{content:item.content,index:idx}}"></template>
+    </view>
+</view>

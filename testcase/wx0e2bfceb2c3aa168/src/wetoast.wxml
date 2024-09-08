@@ -1,0 +1,11 @@
+<template name="wetoast">
+    <view class="wetoast {{reveal?'wetoast_show':''}}" hidden="{{isHidden}}">
+        <view class="wetoast__mask"></view>
+        <view animation="{{animationData}}" class="wetoast__bd">
+            <view class="wetoast__bd__img {{imgClassName||''}}" wx:if="{{img}}">
+                <image class="wetoast__bd__img_desc" mode="{{imgMode||'scaleToFill'}}" src="{{img}}"></image>
+            </view>
+            <view class="wetoast__bd__title {{titleClassName||''}}" wx:if="{{title}}">{{title}}</view>
+        </view>
+    </view>
+</template>

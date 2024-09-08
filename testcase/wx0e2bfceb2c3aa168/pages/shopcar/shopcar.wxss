@@ -1,0 +1,297 @@
+@import "../../public/template.wxss";
+
+page {
+    font-size: 34rpx;
+    background-color: white;
+    font-family: 'Franklin Gothic Medium','Arial Narrow',Arial,sans-serif;
+}
+
+image {
+    vertical-align: bottom;
+}
+
+.newSwiper {
+    height: 400rpx;
+}
+
+.newSwiper_image {
+    width: 100%;
+    height: 400rpx;
+}
+
+.type_Call {
+    display: flex;
+    flex-direction: column;
+    line-height: 88rpx;
+}
+
+.new_checkbox {
+    display: flex;
+    line-height: 80rpx;
+    justify-content: space-between;
+    margin-top: 10rpx;
+    padding-right: 30rpx;
+    align-items: center;
+    text-align: right;
+}
+
+.radio_group {
+    display: flex;
+}
+
+.new_submit {
+    margin-bottom: 22rpx;
+    background-color: #ff4f4f;
+    width: 300rpx;
+    border: 1rpx solid #ff4f4f;
+    margin-top: 48rpx;
+    border-radius: 4rpx;
+    border-color: white;
+    height: 80rpx;
+    color: white;
+    font-size: 32rpx;
+}
+
+.newitem {
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10rpx;
+    display: flex;
+    font-size: 30rpx;
+    line-height: 56rpx;
+}
+
+.hidden_input {
+    line-height: 80rpx;
+    margin: 0 30rpx;
+    font-size: 28rpx;
+    height: 80rpx;
+    border: 1rpx solid #ebebeb;
+    text-align: center;
+}
+
+.radio {
+    margin-left: 50rpx;
+}
+
+.new_postionPhone {
+    display: flex;
+    line-height: 80rpx;
+    overflow: hidden;
+    width: 280rpx;
+    background-color: #ff4f4f;
+    color: white;
+    position: fixed;
+    right: -36rpx;
+    bottom: 100rpx;
+    height: 80rpx;
+    font-size: 32rpx;
+    border-radius: 40rpx;
+    z-index: 1;
+}
+
+.image {
+    width: 100%;
+}
+
+.bottom_btn1 {
+    background-color: white;
+    position: fixed;
+    bottom: 0;
+    width: 50%;
+    left: 0;
+    height: 100rpx;
+    line-height: 100rpx;
+    display: flex;
+    justify-content: center;
+}
+
+.bottom_btn2 {
+    background-color: black;
+    position: fixed;
+    bottom: 0;
+    width: 50%;
+    right: 0;
+    height: 100rpx;
+    line-height: 100rpx;
+    display: flex;
+    justify-content: center;
+    color: white;
+}
+
+.hidden {
+    height: 746rpx;
+    background-color: white;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 9;
+}
+
+.hidden_cancel {
+    height: 116rpx;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 36rpx;
+    align-items: center;
+}
+
+.hidden_content {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hidden_submit {
+    background-color: black;
+    height: 90rpx;
+    width: 550rpx;
+    border-radius: 45rpx;
+    line-height: 90rpx;
+    color: white;
+    text-align: center;
+}
+
+.hiddenbottomtxt {
+    line-height: 60rpx;
+    font-size: 30rpx;
+    color: #666;
+}
+
+.bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: black;
+    opacity: 0.5;
+}
+
+.bottomtxt {
+    margin-top: 80px;
+    font-size: 20rpx;
+    color: #999;
+    padding: 45rpx 0 39rpx 0;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.flex {
+    display: flex;
+}
+
+.aic {
+    align-items: center;
+}
+
+.h100 {
+    height: 100rpx;
+    flex-shrink: 0;
+}
+
+.w44 {
+    width: 44rpx;
+}
+
+.h44 {
+    height: 44rpx;
+}
+
+.marri14 {
+    margin-right: 14rpx;
+}
+
+.t32 {
+    font-size: 32rpx;
+}
+
+.fleshr {
+    flex-shrink: 0;
+}
+
+.map-title {
+    margin: 0 30rpx 0 14rpx;
+    width: 600rpx;
+}
+
+.l88 {
+    line-height: 88rpx;
+}
+
+.typemap {
+    display: flex;
+    height: 100rpx;
+    justify-content: space-between;
+    padding-left: 14rpx;
+    align-items: center;
+}
+
+.df {
+    display: flex;
+    flex-direction: column;
+}
+
+.type_bmg {
+    position: fixed;
+    top: 50rpx;
+    right: 30rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bmgplay {
+    height: 100rpx;
+    width: 100rpx;
+    background-color: white;
+    border-radius: 50rpx;
+}
+
+.video-item {
+    width: 98%;
+    height: 470rpx;
+    margin-left: 1%;
+    position: relative;
+}
+
+.video-img {
+    position: absolute;
+    width: 100%;
+    height: 450rpx;
+    top: 0;
+    left: 0;
+}
+
+.video-icon {
+    position: absolute;
+    left: 42%;
+    top: 40%;
+    width: 100rpx;
+    height: 100rpx;
+}
+
+.basis-rich {
+    margin: 1%;
+    font-size: 32rpx;
+    flex: 1;
+    word-break: break-all;
+}
+
+.basis-rich image {
+    width: 100%;
+}
+
+.basis-rich video {
+    width: 100%;
+}
+
+.picker {
+    font-size: 32rpx;
+    width: unset;
+    height: unset;
+}

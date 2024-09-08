@@ -1,0 +1,21 @@
+<template name="error-page">
+    <view class="empty_view" wx:if="{{!netStateBean.emptyHidden}}">
+        <view class="center_wrapper">
+            <view class="center_child">
+                <icon size="45" type="info"></icon>
+                <view class="error_msg"> {{netStateBean.emptyMsg}}</view>
+            </view>
+        </view>
+    </view>
+    <view class="error_view" wx:if="{{!netStateBean.errorHidden}}">
+        <view class="center_wrapper">
+            <view class="center_child">
+                <icon size="45" type="warn"></icon>
+                <view class="error_msg"> {{netStateBean.errorMsg}}</view>
+                <button catchtap="onRetry" class="error_retry" disabled="{{btnDisabled}}" hoverClass="other-button-hover" loading="{{btnLoading}}" type="warn">
+                    点击重试
+                </button>
+            </view>
+        </view>
+    </view>
+</template>

@@ -1,0 +1,57 @@
+# Don't include GitHub stuff or local scripts
+Gruntfile.js
+.gitignore
+.tern-project
+
+# Don't include inherited Acorn stuff that is not used yet
+docco.css
+index.html
+bin
+build
+util
+
+# Don't include test files
+test
+
+
+### Stuff from .gitignore ###
+
+# OS X
+.DS_Store
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+
+# Emacs
+*.*~
+*.#
+.#*
+*#
+
+# Vim
+.*.sw[a-z]
+*.un~i
+
+# Sublime
+*.sublime-project
+*.sublime-workspace
+
+*.diff
+*.err
+*.orig
+*.log
+*.rej
+*.vi
+*.sass-cache
+
+# OS or Editor folders
+.cache
+.project
+.settings
+.tmproj
+.idea
+nbproject

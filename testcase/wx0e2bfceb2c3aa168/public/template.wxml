@@ -1,0 +1,751 @@
+<template name="timePicker">
+    <view class="timePicer">
+        <picker-view bindchange="bindMultiPickerChange" indicatorStyle="height: 50px;" style="width: 100%; height: 600rpx;" value="{{value}}">
+            <picker-view-column class="pickerview">
+                <view class="" wx:for="{{years}}">{{item}}年</view>
+            </picker-view-column>
+            <picker-view-column class="pickerview">
+                <view wx:for="{{months}}">{{item}}月</view>
+            </picker-view-column>
+            <picker-view-column class="pickerview">
+                <view wx:for="{{days}}">{{item}}日</view>
+            </picker-view-column>
+            <picker-view-column class="pickerview">
+                <view wx:for="{{ours}}">{{item}}时</view>
+            </picker-view-column>
+            <picker-view-column class="pickerview">
+                <view wx:for="{{minues}}">{{item}}分</view>
+            </picker-view-column>
+        </picker-view>
+        <view class="btn">
+            <text bindtap="timecancel" style="margin-left:30rpx;color:rgb(138,138,138)">取消</text>
+            <text bindtap="clickOk" style="margin-right:30rpx;color:rgb(94,220,87)">确定</text>
+        </view>
+    </view>
+</template>
+<template name="template_postlist">
+    <view class="hd_list" data-type="2" wx:if="{{typeid==0&&content.IsExpired==0||typeid!=0}}">
+        <view class="hd_img">
+            <view class="hdImg" style="position:relative;">
+                <view class="hdImg">
+                    <image alt="" mode="aspectFill" src="{{content.user.img}}" style="width:50px;height:50px" wx:if="{{content.user.img!=null&&content.user.img!=''}}"></image>
+                    <image alt="" mode="aspectFill" src="http://oss.vzan.cc/image/jpg/2016/12/2/154847faf8bfa75fd445f2b990702f09abf3aa.jpg" style="width:50px;height:50px" wx:else></image>
+                </view>
+            </view>
+        </view>
+        <view class="hd_center">
+            <view catchtap="bottomItemClick" data-id="{{content.Id}}">
+                <view class="post_top_time" wx:if="{{content.TopPayTime.length>0&&mypublish==1}}">
+          置顶到 {{content.TopPayTime}}
+        </view>
+                <view class="p01" wx:if="{{content.PTypeId==304069}}">
+          从
+          <span style="color:#FF5A00;">{{content.startPoint}}</span> 到
+          <span style="color:#FF5A00;">{{content.endPoint}}</span>
+                </view>
+                <view class="p01" wx:elif="{{content.Title!=null&&content.Title!=''}}">{{content.Title}}</view>
+                <view class="post_type">{{content.pname}}</view>
+            </view>
+            <view catchtap="bottomItemClick" class="hd_c_center" data-id="{{content.Id}}">
+                <block wx:if="{{content.PTypeId==295252}}">
+                    <view class="hd_name2" wx:if="{{content.AreaSize!=''&&content.AreaSize!='0'&&content.AreaSize!=null}}">面积：{{content.AreaSize}}平方</view>
+                    <view class="hd_name2" wx:if="{{content.HouseType!=''&&content.HouseType!=null}}">户型：{{content.HouseType}}</view>
+                    <view class="hd_name2" wx:if="{{content.Price!=0&&content.Price!=null}}">价格：￥{{content.Price}}</view>
+                </block>
+                <block wx:elif="{{content.PTypeId==286121||content.PTypeId==295257||content.PTypeId==295258}}">
+                    <view class="hd_name2" wx:if="{{content.Price!=0&&content.Price!=null}}">价格：￥{{content.Price}}</view>
+                </block>
+                <block wx:elif="{{content.PTypeId==295254}}">
+                    <block wx:if="{{content.SaleType!=7}}">
+                        <view class="hd_name2" wx:if="{{content.Floor!=0&&content.Floor!=null}}">福利：{{content.Floor}}</view>
+                        <view class="hd_name2" wx:if="{{content.CompanyName!=0&&content.CompanyName!=null}}">单位名称：{{content.CompanyName}}</view>
+                        <view class="hd_name2" wx:if="{{content.Experience!=null&&content.Experience!=''&&content.Experience>=1&&content.Experience<=7}}">
+                工作经验：
+                <block wx:if="{{content.Experience==1}}">无工作经验</block>
+                            <block wx:elif="{{content.Experience==2}}">应届毕业生</block>
+                            <block wx:elif="{{content.Experience==3}}">1年以下工作经验</block>
+                            <block wx:elif="{{content.Experience==4}}">1 - 3年工作经验</block>
+                            <block wx:elif="{{content.Experience==5}}">3 - 5年工作经验</block>
+                            <block wx:elif="{{content.Experience==6}}">5 - 10年工作经验</block>
+                            <block wx:elif="{{content.Experience==7}}">10年以上工作经验</block>
+                        </view>
+                        <view class="hd_name2" wx:if="{{content.WorkTime!=null&&content.WorkTime>0&&content.WorkTime<9}}">
+                学历要求：
+                <block wx:if="{{content.WorkTime==1}}">高中以下</block>
+                            <block wx:elif="{{content.WorkTime==2}}">高中</block>
+                            <block wx:elif="{{content.WorkTime==3}}">中专/技校</block>
+                            <block wx:elif="{{content.WorkTime==4}}">大专</block>
+                            <block wx:elif="{{content.WorkTime==5}}">本科</block>
+                            <block wx:elif="{{content.WorkTime==6}}">硕士</block>
+                            <block wx:elif="{{content.WorkTime==7}}">博士</block>
+                            <block wx:elif="{{content.WorkTime==8}}">MBA/EMBA</block>
+                        </view>
+                        <view class="hd_name2" wx:if="{{content.Gender==1||content.Gender==2}}">性别要求：{{content.Gender==1?'男':'女'}}</view>
+                        <view class="hd_name2" wx:if="{{content.AgeRe!=null&&content.AgeRe!=''&&content.AgeRe>0&&content.AgeRe<6}}">
+                年龄要求：
+                <block wx:if="{{content.AgeRe==1}}">25岁以下</block>
+                            <block wx:elif="{{content.AgeRe==2}}">30岁以下</block>
+                            <block wx:elif="{{content.AgeRe==3}}">35岁以下</block>
+                            <block wx:elif="{{content.AgeRe==4}}">40岁以下</block>
+                            <block wx:elif="{{content.AgeRe==5}}">50岁以下</block>
+                            <block wx:elif="{{content.AgeRe==7}}">45岁以下</block>
+                        </view>
+                        <view class="hd_name2" wx:if="{{content.WorkHours!=''&&content.WorkHours!=null}}">工作时间：{{content.WorkHours}}</view>
+                        <view class="hd_name2" wx:if="{{content.NumberQ==null&&content.NumberQ==0&&content.NumberQ==''}}">招聘人数：{{content.NumberQ}}</view>
+                        <view class="hd_name2" wx:if="{{content.Salary!=null&&content.SalaryName!=null&&content.SalaryName!=''&&content.Salary!='1'}}">月薪：￥{{content.SalaryName}}</view>
+                    </block>
+                    <block wx:else>
+                        <view class="hd_name2">
+                            <block wx:if="{{content.LinkMan!=null&&content.LinkMan!=''}}">姓名：{{content.LinkMan}}</block>
+                            <block wx:if="{{content.AgeQ!=null&&content.AgeQ!=''}}">年龄：{{content.AgeQ}}</block>
+                            <block wx:if="{{content.WorkTime!=null&&content.WorkTime!=''}}">学历：{{content.WorkTime}}</block>
+                        </view>
+                        <view class="hd_name2" wx:if="{{content.Experience!=null&&content.Experience!=''&&content.Experience>=1&&content.Experience<=7}}">
+                工作经验：
+                <block wx:if="{{content.Experience==1}}">无工作经验</block>
+                            <block wx:elif="{{content.Experience==2}}">应届毕业生</block>
+                            <block wx:elif="{{content.Experience==3}}">1年以下工作经验</block>
+                            <block wx:elif="{{content.Experience==4}}">1 - 3年工作经验</block>
+                            <block wx:elif="{{content.Experience==5}}">3 - 5年工作经验</block>
+                            <block wx:elif="{{content.Experience==6}}">5 - 10年工作经验</block>
+                            <block wx:elif="{{content.Experience==7}}">10年以上工作经验</block>
+                        </view>
+                        <view class="hd_name2" wx:if="{{content.Salary!=null&&content.SalaryName!=null&&content.SalaryName!=''&&content.Salary!='1'}}">期望月薪：￥{{content.SalaryName}}</view>
+                    </block>
+                </block>
+                <block wx:elif="{{content.PTypeId==304069}}">
+                    <view w class="hd_name2">出发时间：{{content.ShowTime}}</view>
+                    <view w class="hd_name2">{{content.IdentityType==4?'乘客':'空座'}}：{{content.ValNumber}}</view>
+                    <view class="hd_name2" wx:if="{{content.IdentityType==3&&content.carPlate!=null&&content.carPlate!=''}}">车牌号：{{content.carPlate}}</view>
+                </block>
+                <view class="hd_name" wx:if="{{content.Description!=''&&content.Description!=null}}">详情：{{content.Description}}</view>
+            </view>
+            <view class="desriptimg">
+                <image bindtap="pictureTap" data-id="{{content.Id}}" data-src="{{img.FileFullUrl}}" mode="aspectFit" src="{{img.Thumbnail}}" wx:if="{{imgindex<9}}" wx:for="{{content.ImgList}}" wx:for-index="imgindex" wx:for-item="img"></image>
+            </view>
+            <view class="hd_c_center" wx:if="{{content.Address!=null&&content.Address!=''}}">
+                <i style="background: url({{tongcheng_new_02}})no-repeat ;background-size:20rem;background-position-x:-4.95rem;background-position-y:-19.2rem;position:absolute;height:0.7rem;width:15px;display:inline-block;"></i>
+                <text class="hd_addres">{{content.Address}}</text>
+            </view>
+            <view class="hd_c_bot">
+                <span class="now_price">{{content.FromNowTime}}</span>
+                <span catchtap="bottomItemClick" class="hd_s" data-id="{{content.Id}}" data-type="pl">
+                    <i class="hearder_sou_i" style="background: url({{tongcheng_new_02}})no-repeat ;background-size:450px;background-position-x:-63px;background-position-y:-247px;"></i>
+                    <text>{{content.CommentCount}}</text>
+                </span>
+                <span class="hd_s">
+                    <i class="hearder_sou_i" style="background: url({{tongcheng_new_02}})no-repeat ;background-size:450px;background-position-x:-325px;background-position-y:-183px;"></i>
+                    <text>{{content.ViewCount}}</text>
+                </span>
+            </view>
+        </view>
+        <i style="background: url({{tongcheng_01}})no-repeat ;background-size:30rem;background-position-x:0.5rem;background-position-y:-25.3rem;width:2rem;height:2rem;position:absolute;right:0px;top:0px;" wx:if="{{content.TopStatus>0}}"></i>
+    </view>
+</template>
+<template name="ftp">
+    <view catchtap="{{content.clickevent}}" class="ftpclass">
+        <span>{{content.name}}</span>
+    </view>
+</template>
+<template name="returntop">
+    <view catchtap="{{content.clickevent}}" class="returntopclass" hidden="{{!(content.toppx>500)}}" style="bottom:{{content.bottom}}px">
+        <image src="http://i.pengxun.cn/content/city/images/backtop.png"></image>
+    </view>
+</template>
+<template name="year-month-day-hour-minte">
+    <picker bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" mode="multiSelector" range="{{multiArray}}">
+        <view class="picker">
+      {{multimes}}
+    </view>
+    </picker>
+</template>
+<template name="yanzheng">
+    <view style="overflow:auto;">
+        <template is="item_title_content" data="{{content:content.one,index:index}}"></template>
+        <template is="item_separate_horizontal" data="{{content:content.three,index:index}}"></template>
+        <template is="item_content_button" data="{{content:content.two,index:index}}"></template>
+    </view>
+</template>
+<template name="gongzonhao">
+    <view class="search-gongzhong">搜索公众号
+    <i style="color:#3879D9;">微赞</i>查看更多内容</view>
+</template>
+<template name="nouseyouhuiquan">
+    <view class="my-coupon-cells" wx:for="{{content.cell}}">
+        <navigator class="d-flex d-flex-center my-coupon-cell01" url="../coupon_detail/coupon_detail?coupId={{item.StoreCouponId}}">
+            <view class="flex01">{{item.CouponName}}</view>
+            <view>
+                <icon class="right-arrow"></icon>
+            </view>
+        </navigator>
+        <view class="d-flex d-flex-center my-coupon-cell02">
+            <view class="pic">
+                <image src="{{item.ShopLogoUrl}}" wx:if="{{item.ShopLogoUrl!=null&&item.ShopLogoUrl!=''}}"></image>
+                <image src="http://oss.vzan.cc/image/jpg/2016/12/2/154847faf8bfa75fd445f2b990702f09abf3aa.jpg" wx:else></image>
+                <label class="zhuangtai">未消费</label>
+            </view>
+            <view class="flex01">
+                <view>
+                    <i style="color:#ff5d38;margin-right:10px;">￥{{item.Price/100}}</i>
+                    <i style="margin-right:5px;font-size:20rpx;" wx:if="{{item.NewPayCash!=null&&item.NewPayCash!=''}}">到店付{{item.NewPayCash}}</i>
+                    <i style="margin-right:5px;font-size:20rpx;" wx:elif="{{item.SendInfo>0}}">到店付￥{{item.SendInfo/100}}元</i>
+                    <i style="font-size:20rpx;">抵扣￥{{item.Discount/100}}元</i>
+                </view>
+                <view style="margin-top:20rpx;">有效期至{{item.ShowTime}}</view>
+            </view>
+        </view>
+        <view class="d-flex d-flex-center my-coupon-cell03">
+            <view class="li01 flex01">
+                <icon class="icon-my-coupon-shop" style="width: 26px;height: 22px;background: url({{img}}) -45px -300px ;background-size: 502px;vertical-align: -9rpx;"></icon> {{item.ShopName}}</view>
+            <view class="li02" wx:if="{{item.IsRefund!=1&&item.State!=-2}}"></view>
+            <view wx:elif="{{item.IsRefund==1}}">
+                <button catchtap="ReturnPayClick" class="tuikuan-bt" data-couponid="{{item.StoreCouponId}}" data-id="{{item.Id}}">退款</button>
+            </view>
+            <view wx:else>
+                <button class="tuikuan-bt">已退款</button>
+            </view>
+            <view class="li03">
+                <button catchtap="SelectOrderClick" class="shiyong-bt" data-csid="{{item.StoreCouponId}}" data-id="{{item.Id}}">使用</button>
+            </view>
+        </view>
+    </view>
+    <view class="classname" wx:if="{{content.cell.length>0}}">
+        <view style="width:100%;text-align:center;padding-bottom:20rpx;padding-top:20rpx;font-size:26rpx">{{content.more?'正在努力加载更多':'没有更多数据了'}}</view>
+    </view>
+    <view style="margin-top:150px;" wx:else>
+        <i style="background: url({{img}}) no-repeat ;width:100px;height:100px;display:block;margin:0px auto;"></i>
+        <view class="createStoreView f-15rem" style="color:#989898;margin:10px 0px;display:block;text-align:center;">您还没有抢到优惠 !</view>
+        <view catchtap="qiangyouhui" class="qianyouhui">立即去抢</view>
+    </view>
+</template>
+<template name="timeoutyouhuiquan">
+    <view class="my-coupon-cells" wx:for="{{content.cell}}">
+        <navigator class="d-flex d-flex-center my-coupon-cell01" url="url">
+            <view class="flex01">{{item.CouponName}}</view>
+            <view>
+                <icon class="right-arrow"></icon>
+            </view>
+        </navigator>
+        <view class="d-flex d-flex-center my-coupon-cell02">
+            <view class="pic">
+                <image src="{{item.ShopLogoUrl}}" wx:if="{{item.ShopLogoUrl!=null&&item.ShopLogoUrl!=''}}"></image>
+                <image src="http://oss.vzan.cc/image/jpg/2016/12/2/154847faf8bfa75fd445f2b990702f09abf3aa.jpg" wx:else></image>
+                <label class="zhuangtai">已结束</label>
+            </view>
+            <view class="flex01">
+                <view>
+                    <i style="color:#ff5d38;margin-right:10px;">￥{{item.Price/100}}</i>
+                    <i style="margin-right:5px;font-size:20rpx;" wx:if="{{item.NewPayCash!=null&&item.NewPayCash!=''}}">到店付{{item.NewPayCash}}</i>
+                    <i style="margin-right:5px;font-size:20rpx;" wx:elif="{{item.SendInfo>0}}">到店付￥{{item.SendInfo/100}}元</i>
+                    <i style="font-size:20rpx;">抵扣￥{{item.Discount/100}}元</i>
+                </view>
+                <view style="margin-top:20rpx;">有效期至{{item.ShowTime}}</view>
+            </view>
+        </view>
+        <view class="d-flex d-flex-center my-coupon-cell03">
+            <view class="li01 flex01">
+                <icon class="icon-my-coupon-shop" style="width: 26px;height: 22px;background: url({{img}}) -45px -300px ;background-size: 502px;vertical-align: -9rpx;"></icon> {{item.ShopName}}</view>
+            <view wx:if="{{item.IsRefund==1}}">
+                <button catchtap="ReturnPayClick" class="tuikuan-bt" data-couponid="{{item.StoreCouponId}}" data-id="{{item.Id}}">退款</button>
+            </view>
+            <view wx:elif="{{item.State==-2}}">
+                <button class="tuikuan-bt">已退款</button>
+            </view>
+            <view class="li03">
+                <button catchtap="SelectOrderClick" class="tuikuan-bt" data-csid="{{item.StoreCouponId}}" data-id="{{item.Id}}">查看</button>
+            </view>
+        </view>
+    </view>
+    <view class="classname">
+        <view style="width:100%;text-align:center;padding-bottom:20rpx;padding-top:20rpx;font-size:26rpx">{{content.more?'正在努力加载更多':'没有更多数据了'}}</view>
+    </view>
+</template>
+<template name="usedyouhuiquan">
+    <view class="my-coupon-cells" wx:for="{{content.cell}}">
+        <navigator class="d-flex d-flex-center my-coupon-cell01" url="url">
+            <view class="flex01">{{item.CouponName}}</view>
+            <view>
+                <icon class="right-arrow"></icon>
+            </view>
+        </navigator>
+        <view class="d-flex d-flex-center my-coupon-cell02">
+            <view class="pic">
+                <image src="{{item.ShopLogoUrl}}" wx:if="{{item.ShopLogoUrl!=null&&item.ShopLogoUrl!=''}}"></image>
+                <image src="http://oss.vzan.cc/image/jpg/2016/12/2/154847faf8bfa75fd445f2b990702f09abf3aa.jpg" wx:else></image>
+                <label class="zhuangtai">已消费</label>
+            </view>
+            <view class="flex01">
+                <view>
+                    <i style="color:#ff5d38;margin-right:10px;">￥{{item.Price/100}}</i>
+                    <i style="margin-right:5px;font-size:20rpx;" wx:if="{{item.NewPayCash!=null&&item.NewPayCash!=''}}">到店付{{item.NewPayCash}}</i>
+                    <i style="margin-right:5px;font-size:20rpx;" wx:elif="{{item.SendInfo>0}}">到店付￥{{item.SendInfo/100}}元</i>
+                    <i style="font-size:20rpx;">抵扣￥{{item.Discount/100}}元</i>
+                </view>
+                <view style="margin-top:20rpx;">有效期至{{item.ShowTime}}</view>
+            </view>
+        </view>
+        <view class="d-flex d-flex-center my-coupon-cell03">
+            <view class="li01 flex01">
+                <icon class="icon-my-coupon-shop" style="width: 26px;height: 22px;background: url({{img}}) -45px -300px ;background-size: 502px;vertical-align: -9rpx;"></icon> {{item.ShopName}}</view>
+            <view class="li02" wx:if="{{item.IsRefund!=1}}"></view>
+            <view wx:else></view>
+            <view class="li03">
+                <button catchtap="SelectOrderClick" class="tuikuan-bt" data-csid="{{item.StoreCouponId}}" data-id="{{item.Id}}">查看订单</button>
+            </view>
+        </view>
+    </view>
+    <view class="classname">
+        <view style="width:100%;text-align:center;padding-bottom:20rpx;padding-top:20rpx;font-size:26rpx">{{content.more?'正在努力加载更多':'没有更多数据了'}}</view>
+    </view>
+</template>
+<template name="item_image_pinglun">
+    <view>
+        <view style="float:left;margin-right:5px;margin-bottom:5px;width:30%;position:relative;" wx:for="{{content.imageList}}" wx:for-index="imageIndex" wx:for-item="image">
+            <image bindtap="previewImage" class="pinglunimage" data-index="{{imageIndex}}" data-row="{{content.row}}" data-src="{{image}}" src="{{image}}@!200x200"></image>
+            <image bindtap="clearImage" class="clear_btn" data-index="{{imageIndex}}" data-row="{{content.row}}" src="../../image/delete.png"></image>
+        </view>
+        <view bindtap="chooseImage" class="images-image" data-index="{{imageIndex}}" data-row="{{content.row}}" style="background-color:#f6f6f6" wx:if="{{!content.images_full}}">
+            <image bindtap="" class="image" data-index="{{imageIndex}}" data-row="{{content.row}}" data-src="{{image}}" src="{{content.icon!=''?content.icon:'../../image/tc-yh-07.png'}}"></image>
+        </view>
+    </view>
+</template>
+<template name="descpinglun">
+    <block wx:for="{{content[idx].nodes}}" wx:for-item="node">
+        <image bindtap="pictureTap" data-src="{{node.attr.src}}" src="{{node.attr.src}}" style="width:24px;height:24px;" wx:if="{{node.tag=='img'}}"></image>
+        <text wx:else>{{node.text}}</text>
+    </block>
+</template>
+<template name="pingluninput">
+    <view catchtouchmove="" class="pinglutempinput pingluninputtop" wx:if="{{!content.pinglunhidden}}">
+        <view class="commendesc">
+            <view wx:if="{{!content.imghidden}}">
+                <template is="item_image_pinglun" data="{{content:content,index:index}}"></template>
+            </view>
+            <view style="padding:5px;background:#f0f0f0;overflow:hidden;">
+                <textarea bindblur="bindblur" bindfocus="bindfocus" bindinput="bindinput" class="commentextarea" fixed="true" name="comment" placeholder="{{content.placeholder}}" placeholderClass="polderstyle" value="{{content.contenttext}}"></textarea>
+            </view>
+            <view style="margin-top:10px;">
+                <i catchtap="showQQface" style="width:30px;height:30px;background: url({{content.imgresouces}}) no-repeat -270px -300px;background-size:502px;display:block;float:left;"></i>
+                <i catchtap="showimg" style="width:30px;height:30px;background: url({{content.imgresouces}}) no-repeat -320px -300px;background-size:502px;display:block;float:left;margin-left:10px;"></i>
+                <label catchtap="AddStoreComment" class="commencancel commenbackground" data-comuserid="{{content.comuserId}}" data-type="{{content.parentorchild}}">评价</label>
+                <label catchtap="commentDidClick" class="commencancel">取消</label>
+            </view>
+            <view class="qqface" hidden="{{content.qqfacehidden}}" style="height:100px;">
+                <i catchtap="clickface" data-title="{{qqitem}}" style="width:29px;height:29px;display:block;float:left;background: url(http://i.pengxun.cn/content/images/imgpost2/qqface.jpg) no-repeat left top;background-size:100%;{{content.qqfacedata[qqindex]}}margin:5px;" wx:for="{{content.qqfacenamedata}}" wx:for-index="qqindex" wx:for-item="qqitem"></i>
+            </view>
+        </view>
+    </view>
+</template>
+<template name="pinglun">
+    <view>
+        <view class="d-flex pingjia-content" wx:for="{{content.comment}}" wx:for-index="idx">
+            <view class="left">
+                <image class="userIcon" src="{{item.Headimgurl}}"></image>
+            </view>
+            <view class="flex01 right">
+                <view class="name-date">
+                    <text class="name">{{item.NickName}}</text>
+                    <label class="date fr">{{item.FromNowTime}}</label>
+                </view>
+                <view class="pingjia-star"></view>
+                <view catchlongtap="delComment" class="wenzi" data-isowner="{{item.isowner}}" data-parentorchild="{{item.Id}}" data-type="1">
+                    <template is="descpinglun" data="{{content:content.commentdataname,idx:idx}}"></template>
+                </view>
+                <view class="photo" hidden="{{item.ImagUrls==null||item.ImagUrls==''||item.ImagUrls.length==0}}">
+                    <view class="li" wx:for="{{item.ImagUrls}}" wx:for-item="imgitem">
+                        <image bindtap="pictureTap" data-src="{{imgitem}}" src="{{imgitem}}@!200x200" style="width:91px;height:91px;"></image>
+                    </view>
+                </view>
+                <view>
+                    <view catchtap="commentDidClick" data-parentorchild="{{item.Id}}" data-pfloder="回复评论：" style="float:right;margin-right:10px;">
+                        <i catchtap="" style="width:25px;height:20px;background: url({{content.imgresouces}}) no-repeat -220px -300px;background-size:502px;display:block;float:left;"></i>
+                        <text style="float:left;font-size:13px;margin-right:10px;">回复</text>
+                        <text hidden="true" style="float:left;font-size:13px;margin-right:10px;padding-top:3px;">更多</text>
+                    </view>
+                </view>
+                <view style="border-top:1rpx solid #f6f6f6;margin-top:5px;" wx:if="{{item.SubCommentList.length>0}}">
+                    <block wx:for="{{item.SubCommentList}}" wx:for-index="sidx" wx:for-item="subitem">
+                        <view catchlongtap="delComment" class="huifu" data-isowner="{{subitem.isowner}}" data-parentorchild="{{subitem.Id}}">
+                            <label catchtap="commentDidClick" class="huifu-name" data-comuserid="{{subitem.ComUserId}}" data-parentorchild="{{subitem.Id}}" data-pfloder="回复{{subitem.NickName}}：">{{subitem.NickName}} </label>
+                            <block wx:if="{{item.Id!=subitem.ParentId}}">
+                  回复
+                  <label class="huifu-name">{{item.NickName}}</label>
+                            </block>
+                ：
+                <template is="descpinglun" data="{{content:content.subcommentdataname[idx],idx:sidx}}"></template>
+                        </view>
+                        <view class="photo" hidden="{{subitem.ImagUrls==null||subitem.ImagUrls==''||subitem.ImagUrls.length==0}}">
+                            <view class="li" wx:for="{{subitem.ImagUrls}}" wx:for-item="simg">
+                                <image bindtap="pictureTap" data-src="{{simg}}" src="{{simg}}@!200x200" style="width:91px;height:91px;"></image>
+                            </view>
+                        </view>
+                        <view></view>
+                    </block>
+                    <view catchtap="GetMoreSubComment" class="huifu" data-index="{{idx}}" wx:if="{{item.SubCommentList.length<10&&item.CommentCount>10}}">查看所有{{item.CommentCount}}评论</view>
+                </view>
+            </view>
+        </view>
+        <view catchtap="GetStoreComments" class="loadmore">{{content.loadMorecomment[0]}}</view>
+    </view>
+</template>
+<template name="item_servicedic">
+    <view class="template_item_view template_flex_box flex">
+        <text class="item_serviceTime_title f-14rem">{{content.htitle}}</text>
+        <view class="item_serviceTime_red_radius">
+            <view bindtap="showdicall" class="item_serviceTime_child infoTextColor f-12rem {{content.dicallss}}">
+        {{content.dicall}}
+      </view>
+            <view bindtap="showdicsingle" class="item_serviceTime_child infoTextColor f-12rem {{content.dicsingless}}">
+        {{content.dicsingle}}
+      </view>
+        </view>
+    </view>
+    <view wx:if="{{content.dicall!=''}}">
+        <template is="item_title_picker" data="{{content:content}}"></template>
+    </view>
+    <view wx:else>
+        <template is="item_price_origin_discount" data="{{content:content}}"></template>
+    </view>
+</template>
+<template name="item_add_image">
+    <scroll-view class="images-list" scrollX="true" style="width:2000px;">
+        <view class="images-image" wx:for="{{content.imageList}}" wx:for-index="imageIndex" wx:for-item="image">
+            <image bindtap="previewImage" data-index="{{imageIndex}}" data-row="{{index}}" data-src="{{image}}" src="{{image}}" style="width:150rpx;height:150rpx"></image>
+            <view bindtap="clearImage" class="clear_btn" data-index="{{imageIndex}}" data-row="{{index}}"></view>
+        </view>
+        <view bindtap="chooseImage" class="images-image image-plus-gray" data-index="{{imageIndex}}" data-row="{{index}}" wx:if="{{!content.images_full}}">
+            <image src="../../image/icon_add_ten.png" style="width: 50rpx;height: 50rpx"></image>
+            <text class="f-14rem" style="color: white;margin-top: 10rpx">添加图片</text>
+        </view>
+    </scroll-view>
+</template>
+<template name="remind-layout">
+    <view class="fix_tip {{content.showRemind?'active':''}}" wx:if="{{content.showRemind}}">
+        <text>{{content.message}}</text>
+    </view>
+</template>
+<template name="item_title_time">
+    <view class="item_title_date template_item_view">
+        <view class="item_title_date_title">
+            <text class="f-15rem">{{content.title}}</text>
+        </view>
+        <view class="item_title_date_content">
+            <view>
+                <picker bindchange="startTimePick" data-id="{{index}}" end="24:00" mode="time" start="00:00" value="{{content.startTime}}">
+                    <view class="f-15rem" style="text-align: left;color:{{content.startTime==''?'lightgray':'black'}};">
+            {{content.startTime==''?content.placeholder1:content.startTime}}
+          </view>
+                </picker>
+            </view>
+            <text class="f-15rem contentTextColor" style="margin: 20rpx; ">至</text>
+            <view>
+                <picker bindchange="endTimePick" data-id="{{index}}" end="24:00" mode="time" start="00:00" value="{{content.endTime}}">
+                    <view class="f-15rem" style="text-align: right;color:{{content.endTime==''?'lightgray':'black'}};">
+            {{content.endTime==''?content.placeholder2:content.endTime}}
+          </view>
+                </picker>
+            </view>
+        </view>
+    </view>
+</template>
+<template name="item_title_date">
+    <view class="item_title_date template_item_view">
+        <view class="item_title_date_title">
+            <text class="f-15rem">{{content.title}}</text>
+        </view>
+        <view class="item_title_date_content">
+            <picker bindchange="startTimePick" data-id="{{index}}" end="2020-09-01" mode="date" name="startTime{{index}}" start="2017-01-01" value="{{content.startTime}}">
+                <view class="f-15rem" style="color:{{content.startTime==''?'lightgray':'black'}};">
+          {{content.startTime==''?content.placeholder1:content.startTime}}
+        </view>
+            </picker>
+            <text class="f-15rem contentTextColor" style="margin: 20rpx; ">至</text>
+            <picker bindchange="endTimePick" data-id="{{index}}" end="2020-09-01" mode="date" name="endTime{{index}}" start="2017-01-01" value="{{content.endTime}}">
+                <view class="f-15rem" style="text-align: right;color:{{content.endTime==''?'lightgray':'black'}};">
+          {{content.endTime==''?content.placeholder2:content.endTime}}
+        </view>
+            </picker>
+        </view>
+    </view>
+</template>
+<template name="tabLayout">
+    <view class="tabLayout z9">
+        <view bindtap="switchTabLayout" class="tabLayout-tab-item contentTextColor f-14rem {{currentTabIndex==idx?'active':''}}" data-idx="{{idx}}" wx:for="{{tabLayoutItems}}" wx:for-index="idx">
+      {{item}}
+    </view>
+    </view>
+</template>
+<template name="item_checkBox_title_arr">
+    <view catchtap="item_checkBox_title_didtap" class="cell_contentView item_checkBox_title" data-index="{{idx}}" data-row="{{index}}" wx:for="{{content.array}}" wx:for-index="idx">
+        <icon catchtap="item_checkBox_title_didtap" class="icon" color="orangered" data-index="{{idx}}" data-row="{{index}}" size="20" type="{{item.isSuccess?'success':'circle'}}"></icon>
+        <view catchtap="item_checkBox_title_didtap" class="title f-15rem" data-index="{{idx}}" data-row="{{index}}">
+        {{item.title}}
+      </view>
+    </view>
+</template>
+<template name="item_message_boss">
+    <view class="cell_contentView item_message_boss" data-index="{{index}}">
+        <view class="bossView">
+            <view class="bossSubTextView f-15rem" style="background:{{content.isBoss?'orange':'mediumseagreen'}}">
+        {{content.nameType}}
+      </view>
+            <text class="bossNameText f-15rem">{{content.nameText}}</text>
+        </view>
+        <view class="rightView">
+            <text class="bossNumberText f-15rem">{{content.numberText}}</text>
+            <text class="bossStatusText f-15rem">{{content.statusText}}</text>
+        </view>
+    </view>
+</template>
+<template name="item_title_subTitle_double_checkBox">
+    <view bindtap="item_title_subTitle_double_checkBox_didtap" class="cell_contentView item_title_subTitle_double_checkBox" data-index="{{index}}">
+        <view catchtap="item_title_subTitle_double_checkBox_didtap" class="title f-15rem" data-index="{{index}}">
+      {{content.title}}
+    </view>
+        <view class="rightView">
+            <view catchtap="item_title_subTitle_double_checkBox_didtap" class="subTitle f-15rem" data-index="{{index}}">
+        ￥{{content.subTitle}}
+      </view>
+            <text catchtap="item_title_subTitle_double_checkBox_didtap" class="averageTitle f-12rem" data-index="{{index}}">日均{{content.averageTitle}}元
+      </text>
+            <icon catchtap="item_title_subTitle_double_checkBox_didtap" class="icon" color="#FF5D38" data-index="{{index}}" name="{{index}}" size="20" type="{{content.isSuccess?'success':'circle'}}"></icon>
+        </view>
+    </view>
+</template>
+<template name="item_title_checkBox_hiddeninput">
+    <view bindtap="item_checkBox_title_hiddeninput_didtap" class="cell_contentView item_title_checkBox" data-index="{{index}}">
+        <text catchtap="item_checkBox_title_hiddeninput_didtap" class="title f-15rem" data-index="{{index}}">{{content.title}}
+    </text>
+        <view class="rightView">
+            <view catchtap="item_checkBox_title_hiddeninput_didtap" class="subTitle f-14rem" data-index="{{index}}">
+        {{content.subTitle}}{{content.unit}}
+      </view>
+            <icon catchtap="item_checkBox_title_hiddeninput_didtap" class="icon" color="#FF5D38" data-index="{{index}}" name="{{index}}" size="20" type="{{content.isSuccess?'success':'circle'}}"></icon>
+        </view>
+    </view>
+    <view class="defaultBackgroundColor" style="height: 1px;margin: {{content.lineMargin}};"></view>
+    <view class="item_title_content" hidden="{{content.hidden}}">
+        <view class="title">{{content.inputtitle}}</view>
+        <input bindinput="item_title_content_save" class="input" data-row="{{index}}" maxlength="{{content.maxlength}}" name="{{index}}" placeholder="{{content.placeholder}}" type="{{content.inputType?content.inputType:'text'}}" value="{{content.value}}"></input>
+        <label class="uitstyle">小时</label>
+    </view>
+</template>
+<template name="item_title_checkBox">
+    <view bindtap="item_checkBox_title_didtap" class="cell_contentView item_title_checkBox" data-index="{{index}}">
+        <text catchtap="item_checkBox_title_didtap" class="title f-15rem" data-index="{{index}}">{{content.title}}
+    </text>
+        <view class="rightView">
+            <view catchtap="item_checkBox_title_didtap" class="subTitle f-14rem" data-index="{{index}}">
+        {{content.subTitle}}{{content.unit}}
+      </view>
+            <icon catchtap="item_checkBox_title_didtap" class="icon" color="#FF5D38" data-index="{{index}}" name="{{index}}" size="20" type="{{content.isSuccess?'success':'circle'}}"></icon>
+        </view>
+    </view>
+</template>
+<template name="item_checkBox_title">
+    <view bindtap="item_checkBox_title_didtap" class="cell_contentView item_checkBox_title" data-index="{{index}}">
+        <icon catchtap="item_checkBox_title_didtap" class="icon" color="#FF5D38" data-index="{{index}}" size="20" type="{{content.isSuccess?'success':'circle'}}"></icon>
+        <text class="title f-15rem">{{content.title}}</text>
+    </view>
+</template>
+<template name="item_star_midContent_rightContent">
+    <view bindtap="bindPickerChangeArea" class="cell_contentView item_star_midContent_rightContentView" data-index="0" data-row="{{index}}">
+        <view class="leftViewOfStar ">
+            <text class="title f-15rem">{{content.title}}</text>
+            <text class="starText f-15rem">*</text>
+        </view>
+        <view class="centerView">
+            <view catchtap="bindPickerChangeArea" data-index="0" data-row="{{index}}">
+                <view class="picker">
+                    <view catchtap="bindPickerChangeArea" class="pickerText f-15rem" data-index="0" data-row="{{index}}" style="text-align: right;color:{{content.city==''?'lightgray':'black'}}; ">
+            {{content.city==''?content.items[0].placeholder:content.city}}
+          </view>
+                </view>
+            </view>
+            <image class="arrow" src="../../image/icon_arrow_right.png"></image>
+        </view>
+        <view catchtap="bindPickerChangeArea" class="rightView centerView" data-index="0" data-row="{{index}}">
+            <view catchtap="bindPickerChangeArea" data-index="0" data-row="{{index}}">
+                <view class="picker">
+                    <view catchtap="bindPickerChangeArea" class="pickerText f-15rem" data-index="0" data-row="{{index}}" style="text-align: right;color:{{content.street==''?'lightgray':'black'}}; ">
+            {{content.street==''?content.items[1].placeholder:content.street}}
+          </view>
+                </view>
+            </view>
+            <image class="arrow" src="../../image/icon_arrow_right.png"></image>
+        </view>
+    </view>
+</template>
+<template name="item_title_star_content_location">
+    <view class="cell_contentView item_title_star_content_locationView">
+        <view class="leftViewOfStar ">
+            <text class=" title f-15rem">{{content.title}}</text>
+            <text class="starText f-15rem">*</text>
+        </view>
+        <view class="rightView">
+            <input bindinput="item_title_star_content_location_save" class="f-15rem subTitle" data-row="{{index}}" name="{{index}}" placeholder="{{content.placeholder}}" style="text-align: right;" type="digit" value="{{content.subTitle}}"></input>
+            <view class="marginView"></view>
+            <view class="locationView">
+                <image bindtap="clickToLocate" class="loationImage" data-row="{{index}}" src="../../image/icon_map.png"></image>
+                <text bindtap="clickToLocate" class="locationText f-13rem" data-row="{{index}}">定位</text>
+            </view>
+        </view>
+    </view>
+</template>
+<template name="item_title_star_content_arrow">
+    <view bindtap="item_title_star_content_arrowViewDidClick" class="cell_contentView item_title_star_content_arrowView">
+        <view class="leftViewOfStar ">
+            <text class="title f-15rem">{{content.title}}</text>
+            <text class="starText f-15rem">*</text>
+        </view>
+        <view class="rightView">
+            <text catchtap="item_title_star_content_arrowViewDidClick" class="f-15rem subTitle" data-row="{{index}}" name="{{index}}" style="text-align: right;" value="{{content.subTitle}}">{{content.subTitle}}</text>
+            <image class="arrow" src="../../image/icon_arrow_right.png"></image>
+        </view>
+    </view>
+</template>
+<template name="item_title_content_arrow">
+    <view class="cell_contentView item_title_star_content_arrowView">
+        <view class="leftViewOfStar ">
+            <text class="title f-15rem">{{content.title}}</text>
+        </view>
+        <view class="rightView">
+            <text bindtap="item_title_content_arrow_click" class="subTitle f-15rem infoTextColor" data-row="{{index}}" name="{{index}}" style="text-align: right;" type="digit">{{content.placeholder}}
+      </text>
+            <image class="arrow" src="../../image/icon_arrow_right.png"></image>
+        </view>
+    </view>
+</template>
+<template name="item_serviceTime_detail">
+    <view class="flex item_serviceTime_detail">
+        <text class="item_serviceTime_detail_text contentTextColor f-14rem" wx:for="{{content.date}}">{{item}}</text>
+    </view>
+</template>
+<template name="item_serviceTime">
+    <view class="template_item_view template_flex_box flex">
+        <text class="item_serviceTime_title f-14rem">{{content.title}}</text>
+        <view class="item_serviceTime_red_radius">
+            <view bindtap="showWeek" class="item_serviceTime_child infoTextColor f-12rem {{content.weekSS}}" data-id="{{index}}">
+        {{content.week}}
+      </view>
+            <view bindtap="showMonth" class="item_serviceTime_child infoTextColor f-12rem {{content.monthSS}}" data-id="{{index}}">
+        {{content.month}}
+      </view>
+        </view>
+    </view>
+    <view class="flex item_serviceTime_detail">
+        <text catchtap="onTimeItemClick" class="item_serviceTime_detail_text contentTextColor f-12rem {{item.select?'item_serviceTime_detail_text_select':''}}" data-id="{{position}}" data-row="{{index}}" wx:for="{{content.date}}" wx:for-index="position">{{item.content}}
+      </text>
+    </view>
+</template>
+<template name="item_price_origin_discount">
+    <view class="template_item_view template_flex_box flex">
+        <view class="item_price_origin_discount">
+            <text class="f-15rem">{{content.title1}}</text>
+            <input bindinput="item_price_origin_discount_first_save" class="f-15rem" data-row="{{index}}" name="{{index}}-first" placeholder="{{content.placeholder1}}" type="number" value="{{content.value1}}"></input>
+        </view>
+        <template is="item_separate_vertical" data="{{content:content}}"></template>
+        <view class="item_price_origin_discount" style="margin-left: 20rpx">
+            <text class="f-15rem">{{content.title2}}</text>
+            <input bindinput="item_price_origin_discount_second_save" class="f-15rem" data-row="{{index}}" disabled="false" name="{{index}}-second" placeholder="{{content.placeholder2}}" placeholderStyle="color:red;" style="text-align: right;color:darkgrey;" type="number" value="{{content.value2}}"></input>
+        </view>
+    </view>
+</template>
+<template name="item_separate_vertical">
+    <view class="lineColor" style="width: 1.3px;height: {{content.lineHeight}}rpx;display: inline"></view>
+</template>
+<template name="item_padding">
+    <view class="defaultBackgroundColor" style="height: 20rpx;margin: {{content.lineMargin}};"></view>
+</template>
+<template name="item_separate_horizontal">
+    <view class="defaultBackgroundColor" style="height: 1px;margin: {{content.lineMargin}};"></view>
+</template>
+<template name="item_title_record">
+    <view class="recordContentView">
+        <image class="recordImageView" src=""></image>
+    </view>
+</template>
+<template name="item_title_star_content">
+    <view class="item_title_star_content" name="{{index}}">
+        <view>
+            <text class="title">{{content.title}}
+        <text class="star">*</text>
+            </text>
+        </view>
+        <input bindinput="item_title_star_content_save" class="input" data-row="{{index}}" disabled="{{!content.canTap}}" name="{{index}}" placeholder="{{content.placeholder}}" type="{{content.inputType?content.inputType:'text'}}" value="{{content.value}}"></input>
+    </view>
+</template>
+<template name="item_title_picker">
+    <view class="item_title_picker">
+        <view class="title">{{content.title}}</view>
+        <picker bindchange="bindPickerChange" class="pickerwidth" data-id="{{index}}" range="{{content.listitem}}" value="{{content.listitem[0]}}">
+            <view class="picker">
+        {{content.value}}
+      </view>
+        </picker>
+    </view>
+</template>
+<template name="item_content_button">
+    <view class="item_content_button">
+        <button catchtap="getCode" class="{{content.changebak}}" style="font-size:30rpx;margin-left:5px;margin-right:0px;height:88rpx;line-height:88rpx;width:115px;color:white;float:right;">{{content.changecontent}}</button>
+        <input bindinput="item_ontent_botton_save" class="input" data-row="{{index}}" disabled="{{!content.canTap}}" maxlength="{{content.maxlength}}" name="{{index}}" placeholder="{{content.placeholder}}" type="{{content.inputType?content.inputType:'text'}}"></input>
+    </view>
+</template>
+<template name="item_title_content">
+    <view class="item_title_content">
+        <view class="title">{{content.title}}</view>
+        <input bindinput="item_title_content_save" class="input" data-row="{{index}}" disabled="{{!content.canTap}}" maxlength="{{content.maxlength}}" name="{{index}}" placeholder="{{content.placeholder}}" type="{{content.inputType?content.inputType:'text'}}" value="{{content.value}}"></input>
+    </view>
+</template>
+<template name="item_content">
+    <view class="item_content">
+        <textarea bindinput="item_content_save" class="input" data-row="{{index}}" name="{{index}}" placeholder="{{content.placeholder}}" value="{{content.value}}"></textarea>
+    </view>
+</template>
+<template name="item_text">
+    <view class="template_item_view flex template_flex_box" name="{{index}}" style="justify-content: flex-start;align-items: center">
+        <text class="f-15rem">{{content.value}}</text>
+    </view>
+</template>
+<template name="item_content_image">
+    <view class="item_content_image">
+        <textarea bindinput="item_content_image_save" class="input" data-row="{{index}}" placeholder="{{content.placeholder}}" value="{{content.value}}"></textarea>
+        <scroll-view class="item_image" scrollX="true">
+            <view class="images-list" style="background-color: {{content.hasBgColor?'white':''}}">
+                <view class="images-image" wx:for="{{content.imageList}}" wx:for-index="imageIndex" wx:for-item="image">
+                    <image bindtap="previewImage" class="image" data-index="{{imageIndex}}" data-row="{{index}}" data-src="{{image}}" src="{{image}}"></image>
+                    <image bindtap="clearImage" class="clear_btn" data-index="{{imageIndex}}" data-row="{{index}}" src="../../image/delete.png"></image>
+                </view>
+                <view bindtap="chooseImage" class="images-image" data-index="{{imageIndex}}" data-row="{{index}}" style="padding-right: 30rpx;background-color:rgba(0,0,0,0)" wx:if="{{!content.images_full}}">
+                    <image bindtap="" class="image" data-index="{{imageIndex}}" data-row="{{index}}" data-src="{{image}}" src="../../image/addImage_white.png"></image>
+                </view>
+            </view>
+        </scroll-view>
+    </view>
+</template>
+<template name="item_image_title">
+    <view class="item_image">
+        <view class="images-list" style="background-color : white ;padding: 24rpx 30rpx 24rpx 30rpx;">
+            <image bindtap="chooseImage" class="images-image" data-index="{{imageIndex}}" data-rechoose="true" data-row="{{index}}" data-src="{{image}}" src="{{image==''?'../../image/placeholderImage.png':image}}" style="margin:20rpx 0rpx 20rpx 0rpx" wx:for="{{content.imageList}}" wx:for-index="imageIndex" wx:for-item="image"></image>
+            <view bindtap="chooseImage" class="images-image" data-index="{{imageIndex}}" data-row="{{index}}" style="margin:20rpx 0rpx 20rpx 0rpx" wx:if="{{!content.images_full}}">
+                <image class="image" data-index="{{imageIndex}}" data-rechoose="true" data-row="{{index}}" data-src="{{image}}" src="../../image/placeholderImage.png"></image>
+            </view>
+            <view class="titleView" style="margin:20rpx 0rpx 20rpx 20rpx">
+                <text class="text">{{content.title}}</text>
+            </view>
+        </view>
+    </view>
+</template>
+<template name="item_image">
+    <scroll-view class="item_image" scrollX="true">
+        <view class="images-list">
+            <view class="images-image" wx:for="{{content.imageList}}" wx:for-index="imageIndex" wx:for-item="image">
+                <image bindtap="previewImage" class="image" data-index="{{imageIndex}}" data-row="{{index}}" data-src="{{image}}" src="{{image}}"></image>
+                <image bindtap="clearImage" class="clear_btn" data-index="{{imageIndex}}" data-row="{{index}}" src="../../image/delete.png"></image>
+            </view>
+            <view bindtap="chooseImage" class="images-image" data-index="{{imageIndex}}" data-row="{{index}}" style="padding-right: 30rpx;background-color:#f6f6f6" wx:if="{{!content.images_full}}">
+                <image bindtap="" class="image" data-index="{{imageIndex}}" data-row="{{index}}" data-src="{{image}}" src="../../image/addImage.png"></image>
+            </view>
+        </view>
+    </scroll-view>
+</template>

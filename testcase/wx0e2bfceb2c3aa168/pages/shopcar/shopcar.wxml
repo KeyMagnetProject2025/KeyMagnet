@@ -1,0 +1,68 @@
+<import src="../../public/template.wxml"></import>
+<import src="../../utils/wxParse/wxParse.wxml"></import>
+<block wx:for="{{obj}}" wx:for-index="pindex" wx:for-item="this">
+    <swiper autoplay="{{autoplay}}" bindtap="previewImageAPI" class="newSwiper" duration="1000" id="{{pindex}}" indicatorDots="{{indicatorDots}}" interval="3000" wx:if="{{this.type=='banner'}}">
+        <swiper-item wx:for="{{this.items}}">
+            <image class="newSwiper_image" data-index="{{index}}" hidden="{{item.imgurl==''}}" mode="aspectFill" src="{{item.imgurl}}"></image>
+        </swiper-item>
+    </swiper>
+    <view class="basis-rich" wx:if="{{this.type=='editor'}}" wx:for="{{this.items}}">
+        <template is="wxParse" data="{{wxParseData:item.txt.nodes}}"></template>
+    </view>
+    <view class="video-item" wx:if="{{this.type=='video'}}" wx:for="{{this.items}}">
+        <video autoplay="{{item.isAutoPlay==1}}" poster="{{item.videoCover}}" src="{{item.videoUrl}}" style="width:98%;margin-left:1%"></video>
+    </view>
+    <view bindtap="markertap" class="typemap" data-address="{{this.title}}" id="{{pindex}}" wx:if="{{this.type=='map'}}">
+        <view class="flex aic h100">
+            <image class="w44 h44 fleshr" src="/image/a5.png"></image>
+            <text class="vertical-1 l88 t32 map-title">{{this.title}}</text>
+        </view>
+        <image class="fleshr" src="/image/a6.png" style="width:34rpx;height:34rpx;"></image>
+    </view>
+    <image bindtap="previewSingleImage" data-img="{{item.imgPath}}" mode="widthFix" src="{{item.imgPath}}" style="width:100%;" wx:if="{{this.type=='img'}}" wx:for="{{this.items}}"></image>
+    <view hidden="{{this.type=='map'}}" style="font-size:32rpx;font-weight: bold;text-align:center;line-height:111rpx;background-color:white;font-family:PingFang-SC-Bold;color:rgba(18,18,18,1);">{{this.title}}</view>
+    <form bindsubmit="formSubmit" reportSubmit="true" wx:if="{{this.type=='form'}}">
+        <block wx:for="{{this.items}}">
+            <view class="hidden_content" wx:for="{{item.items}}">
+                <view class="newitem" wx:if="{{item.type=='formInput'}}">
+                    <text style="margin-left:30rpx;">{{item.filedName}}</text>
+                    <input bindchange="" class="hidden_input" data-name="{{item.filedName}}" id="{{pindex}}" maxlength="20" name="{{item.filedName}}" placeholder="" placeholderStyle="color: rgba(194, 195, 204, 1); font-size: 28rpx;"></input>
+                </view>
+                <view class="newitem" wx:if="{{item.type=='DateTimePicker'}}">
+                    <text style="margin-left:30rpx;">{{item.filedName}}</text>
+                    <input bindtap="timesure" class="hidden_input" data-id="{{item.sys_index}}" disabled="{{inputDisable}}" id="{{index}}" name="{{item.filedName}}" style="padding:0 30rpx;color: rgba(194, 195, 204, 1);" wx:if="{{hidden==0}}"></input>
+                    <input bindtap="timesure" class="hidden_input" data-id="{{item.sys_index}}" disabled="{{inputDisable}}" id="{{index}}" name="{{item.filedName}}" placeholder="" value="{{alltime[index]}}" wx:if="{{hidden==1}}"></input>
+                </view>
+                <view class="newitem" wx:if="{{item.type=='NumberPicker'}}">
+                    <text style="margin-left:30rpx;">{{item.filedName}}</text>
+                    <input class="hidden_input" id="{{pindex}}" maxlength="3" name="{{item.filedName}}" placeholderStyle="color: rgba(194, 195, 204, 1); font-size: 28rpx;" type="number"></input>
+                </view>
+            </view>
+            <view class="new_checkbox">
+                <text style="margin-left:30rpx;">{{item.title}}</text>
+                <picker bindchange="bindPickerChange" data-index="{{index}}" data-name="{{item.items[pickerArray[index].id].filedName}}" data-title="{{item.title}}" range="{{item.items}}" rangeKey="{{'filedName'}}" value="{{pickerArray[index].id}}" wx:if="{{item.items[pickerArray[index].id].type=='CheckBox'}}">
+                    <input class="picker" disabled="true" name="{{item.title}}" value="{{item.items[pickerArray[index].id].filedName}}"></input>
+                </picker>
+            </view>
+        </block>
+        <button class="new_submit" data-name="{{this.title}}" formType="submit">确认提交</button>
+    </form>
+    <view class="type_Call">
+        <view bindtap="makePhoneCall" class="new_postionPhone" hidden="{{phoneNumber==''}}" wx:if="{{this.type=='Call'}}" wx:for="{{this.items}}">
+            <image src="../../image/a3.png" style="width:31rpx;height:31rpx;margin:24rpx 21rpx 0 35rpx;flex-shrink:0"></image>
+            <view style="width:5em;">{{item.phoneBtnTitle}}</view>
+        </view>
+    </view>
+    <view bindtap="playvoice" class="type_bmg">
+        <view wx:if="{{this.type=='bmg'}}" wx:for="{{this.items}}">
+            <image src="/image/a7.png" style="height:40rpx;width:40rpx"></image>
+        </view>
+    </view>
+</block>
+<template is="timePicker" data="{{value:value,years:years,months:months,days:days,ours:ours,minues:minues}}" wx:if="{{!conditiontime}}"></template>
+<view class="bottomtxt" wx:if="{{AgentConfig.IsOpenAdv==1}}">
+    <image mode="widthFix" src="{{AgentConfig.LogoImgUrl}}" style="max-width:80rpx;margin-bottom:12rpx"></image>
+    <view style="margin-top:10rpx" wx:if="{{AgentConfig.isdefaul==1}}">{{AgentConfig.LogoText}}</view>
+    <view class="" wx:if="{{AgentConfig.isdefaul==0}}">{{AgentConfig.LogoText[0]}}</view>
+    <view class="" wx:if="{{AgentConfig.isdefaul==0}}"> {{AgentConfig.LogoText[2]}}</view>
+</view>
